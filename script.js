@@ -4,7 +4,7 @@
 // این کلید Service Role Key است که برای عملیات نوشتن (حذف و ویرایش) لازم است.
 // توجه: استفاده از این کلید در کلاینت امن نیست و باید در بک‌اند استفاده شود.
 const SUPABASE_URL = 'https://pjqfufgikfzqnttovgvc.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1ZGRuanh6a2Vyb2hnZXhmYXFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5OTA1NjYsImV4cCI6MjA5NzU2NjU2Nn0.EVYUTiNvj7xxtCTZLyBafI7XiH3yVAqnbHiZkwdQwW8';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1ZGRuanh6a2Vyb2hnZXhmYXFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5OTA1NjYsImV4cCI6MjA5NzU2NjU2Nn0';
 
 const supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_KEY);
 
