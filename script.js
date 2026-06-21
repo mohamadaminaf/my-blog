@@ -6,20 +6,29 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // تابع نمایش پست‌ها
 async function loadPosts() {
-    const postContainer = document.getElementById('post-list'); // مطمئن شو در HTML این آیدی را داری
+    const postContainer = document.getElementById('post-list');
     
+    // تغییر اینجا: از Posts استفاده کردیم
     const { data: posts, error } = await _supabase
-        .from('posts')
+        .from('Posts') 
         .select('*')
         .order('created_at', { ascending: false });
 
     if (error) {
         console.error('Error fetching posts:', error);
+        // این خط باعث می‌شود اگر خطا داد، روی صفحه وبلاگت بنویسد چه مشکلی هست
+        postContainer.innerHTML = `<p style="color: red;">خطا در دریافت اطلاعات: ${error.message}</p>`;
         return;
     }
 
     if (postContainer) {
         postContainer.innerHTML = '';
+        
+        if (posts.length === 0) {
+            postContainer.innerHTML = "<p>هنوز پستی منتشر نشده است.</p>";
+            return;
+        }
+
         posts.forEach(post => {
             const article = document.createElement('article');
             article.innerHTML = `
@@ -32,4 +41,5 @@ async function loadPosts() {
     }
 }
 
+// اجرای تابع
 loadPosts();
