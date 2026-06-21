@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پنل مدیریت وبلاگ</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- کتابخانه Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<header>
+    <h1>پنل مدیریت محمد امین</h1>
+    <nav>
+        <a href="index.html">برگشت به خانه</a>
+    </nav>
+</header>
+
+<main style="max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+    <h2>افزودن نوشته جدید</h2>
+    
+    <!-- فرم ورود رمز ادمین -->
+    <div id="login-section">
+        <p>لطفاً رمز ورود ادمین را وارد کنید:</p>
+        <input type="password" id="admin-pass" placeholder="رمز عبور">
+        <button onclick="checkPassword()">ورود</button>
+    </div>
+
+    <!-- فرم نوشتن پست (در ابتدا مخفی است) -->
+    <div id="post-form" style="display: none;">
+        <div style="margin-bottom: 15px;">
+            <label>عنوان نوشته:</label><br>
+            <input type="text" id="post-title" style="width: 100%; padding: 8px; margin-top: 5px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>متن نوشته:</label><br>
+            <textarea id="post-content" rows="6" style="width: 100%; padding: 8px; margin-top: 5px;"></textarea>
+        </div>
+        
+        <button onclick="sendPost()" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer;">انتشار پست</button>
+        <p id="status-msg" style="color: green; margin-top: 10px;"></p>
+    </div>
+</main>
+
+<script>
+    // اطلاعات اتصال
+    const SUPABASE_URL = 'https://iuddnjxzkerohgexfaqp.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1ZGRuanh6a2Vyb2hnZXhmYXFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5OTA1NjYsImV4cCI6MjA5NzU2NjU2Nn0.EVYUTiNvj7xxtCTZLyBafI7XiH3yVAqnbHiZkwdQwW8';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // رمز عبور پیش‌فرض تو (می‌توانی تغییرش دهی)
+    const MY_PASSWORD = "Amin12amin"; 
+
+    function checkPassword() {
+        const inputPass = document.getElementById('admin-pass').value;
+        if (inputPass === MY_PASSWORD) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('post-form').style.display = 'block';
+        } else {
+            alert('رمز عبور اشتباه است محمد امین جان!');
+        }
+    }
+
+    async function sendPost() {
+        const title = document.getElementById('post-title').value;
+        const content = document.getElementById('post-content').value;
+        const statusMsg = document.getElementById('status-msg');
+
+        if (!title || !content) {
+            alert('لطفاً همه کادرها را پر کن.');
+            return;
+        }
+
+        statusMsg.innerText = "در حال ارسال به دیتابیس...";
+
+        // فرستادن اطلاعات به جدول posts
+        const { error } = await _supabase
+            .from('posts')
+            .insert([{ title: title, content: content }]);
+
+        if (error) {
+            statusMsg.innerText = "خطا در ارسال: " + error.message;
+            statusMsg.style.color = "red";
+        } else {
+            statusMsg.innerText = "پست با موفقیت منتشر شد! 🎉";
+            statusMsg.style.color = "green";
+            // پاک کردن فرم
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-content').value = '';
+        }
+    }
+</script>
+
+</body>
+</html>
