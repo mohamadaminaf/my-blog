@@ -1,43 +1,37 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>وبلاگ محمد امین</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وبلاگ محمد امین</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- اضافه کردن کتابخانه Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
 <header>
-<h1>وبلاگ محمد امین</h1>
-
-<nav>
-<a href="index.html">خانه</a>
-<a href="posts.html">نوشته‌ها</a>
-<a href="about.html">درباره من</a>
-</nav>
-
+    <h1>وبلاگ محمد امین</h1>
+    <nav>
+        <a href="index.html">خانه</a>
+        <a href="posts.html">نوشته‌ها</a>
+        <a href="about.html">درباره من</a>
+    </nav>
 </header>
 
 <main>
-
-<section class="post">
-
-<h2>اولین پست</h2>
-
-<p>
-سلام! این اولین پست وبلاگ من است.
-در اینجا درباره چیزهایی که یاد می‌گیرم می‌نویسم.
-</p>
-
-</section>
-
+    <!-- این بخش جایی است که پست‌های دیتابیس نمایش داده می‌شوند -->
+    <section id="post-list" class="posts-container">
+        <p style="text-align: center;">در حال بارگذاری نوشته‌ها...</p>
+    </section>
 </main>
 
 <footer>
-<p>© 2026 Mohammad Amin</p>
+    <p>© 2026 Mohammad Amin</p>
 </footer>
 
+<!-- اتصال به فایل جاوااسکریپت -->
 <script src="script.js"></script>
 
 </body>
