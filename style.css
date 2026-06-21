@@ -1,53 +1,33 @@
-body{
-
-font-family:tahoma;
-background:#f4f4f4;
-margin:0;
-direction:rtl;
-
+/* استایل دکمه سه نقطه */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
 }
 
-header{
-
-background:#222;
-color:white;
-padding:20px;
-text-align:center;
-
+/* استایل سایدبار */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
 }
 
-nav a{
-
-color:white;
-margin:10px;
-text-decoration:none;
-font-size:18px;
-
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
 }
 
-main{
-
-width:80%;
-margin:auto;
-margin-top:30px;
-
-}
-
-.post{
-
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-
-}
-
-footer{
-
-margin-top:40px;
-background:#222;
-color:white;
-text-align:center;
-padding:20px;
-
-}
+.sidebar a:hover { color: #f1f1f1; }
