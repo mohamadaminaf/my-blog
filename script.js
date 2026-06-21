@@ -1,36 +1,45 @@
 const SUPABASE_URL = 'https://pjqfufgikfzqnttovgvc.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1ZGRuanh6a2Vyb2hnZXhmYXFwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTk5MDU2NiwiZXhwIjoyMDk3NTY2NTY2fQ.-i5niJMhqv8lEFciLZjgUdJ3zZs5tzNRPs2qaTxFJLA';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1ZGRuanh6a2Vyb2hnZXhmYXFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5OTA1NjYsImV4cCI6MjA5NzU2NjU2Nn0';
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// تابع باز و بسته کردن منو
-function toggleSidebar() {
-    const sidebar = document.getElementById("mySidebar");
-    if (sidebar.style.width === "250px") {
-        sidebar.style.width = "0";
-    } else {
-        sidebar.style.width = "250px";
-    }
-}
-
-// اضافه کردن ایونت کلیک به دکمه سه نقطه
-document.getElementById("menu-btn").addEventListener("click", toggleSidebar);
-
-// تابع لود کردن نوشته‌ها
 async function loadPosts() {
-    const container = document.getElementById('posts-container');
-    let { data: posts, error } = await supabase.from('posts').select('*');
-    
-    if (error) {
-        container.innerHTML = "خطا در بارگذاری!";
-        console.error(error);
-        return;
+    const container = document.getElementById("posts-container");
+    if (!container) return;
+
+    container.innerHTML = "در حال دریافت اطلاعات از دیتابیس...";
+
+    try {
+        const { data, error } = await supabase
+            .from("posts")
+            .select("*")
+            .order("id", { ascending: false });
+
+        if (error) {
+            console.error("Supabase Error:", error);
+            container.innerHTML = "خطا در اتصال به دیتابیس. لطفا بعداً تلاش کنید.";
+            return;
+        }
+
+        if (!data || data.length === 0) {
+            container.innerHTML = "هنوز پستی در وبلاگ ثبت نشده است.";
+            return;
+        }
+
+        container.innerHTML = ""; // پاک کردن پیام لودینگ
+        data.forEach(post => {
+            const div = document.createElement("div");
+            div.className = "post";
+            div.style.borderBottom = "1px solid #ccc";
+            div.style.marginBottom = "20px";
+            div.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
+            container.appendChild(div);
+        });
+
+    } catch (e) {
+        console.error("System Error:", e);
+        container.innerHTML = "خطای غیرمنتظره رخ داد.";
     }
-    
-    container.innerHTML = posts.length > 0 ? "" : "هنوز نوشته‌ای وجود ندارد.";
-    posts.forEach(post => {
-        container.innerHTML += `<div><h2>${post.title}</h2><p>${post.content}</p></div>`;
-    });
 }
 
-document.addEventListener('DOMContentLoaded', loadPosts);
+document.addEventListener("DOMContentLoaded", loadPosts);
