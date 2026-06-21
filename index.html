@@ -2,37 +2,31 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>وبلاگ محمد امین</title>
     <link rel="stylesheet" href="style.css">
-    <!-- اضافه کردن کتابخانه Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-
 <body>
 
-<header>
-    <h1>وبلاگ محمد امین</h1>
-    <nav>
-        <a href="index.html">خانه</a>
-        <a href="posts.html">نوشته‌ها</a>
-        <a href="about.html">درباره من</a>
-    </nav>
-</header>
+    <!-- دکمه سه نقطه -->
+    <button id="menu-btn" class="menu-btn">⋮</button>
 
-<main>
-    <!-- این بخش جایی است که پست‌های دیتابیس نمایش داده می‌شوند -->
-    <section id="post-list" class="posts-container">
-        <p style="text-align: center;">در حال بارگذاری نوشته‌ها...</p>
-    </section>
-</main>
+    <!-- سایدبار (منو) -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleSidebar()">&times;</a>
+        <a href="#">پروفایل</a>
+        <a href="#">نوشته‌ها</a>
+        <a href="#">عکس‌ها</a>
+        <a href="#">ابزارها</a>
+        <a href="#">تنظیمات</a>
+    </div>
 
-<footer>
-    <p>© 2026 Mohammad Amin</p>
-</footer>
+    <!-- محتوای اصلی -->
+    <div id="main-content">
+        <h1>وبلاگ من</h1>
+        <div id="posts-container">در حال بارگذاری...</div>
+    </div>
 
-<!-- اتصال به فایل جاوااسکریپت -->
-<script src="script.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
 </body>
 </html>
